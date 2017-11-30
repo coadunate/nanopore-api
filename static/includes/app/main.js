@@ -232,7 +232,7 @@ define(function (require) {
 
 
         // Populate the reference
-        d3.json("http://homepage.usask.ca/~mts066/reference.json",function(error,data){
+        d3.json("static/includes/app/data/reference.json",function(error,data){
             if (error) throw error;
 
             // add the reference to the read alignment view.
