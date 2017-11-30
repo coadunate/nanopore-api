@@ -375,7 +375,7 @@ define(function (require) {
     }).header("Content-Type", "application/json");
 
 
-    d3.json("../includes/app/data/events.json", function(error, data) {
+    d3.json(" {{ url_for('static',filename='./includes/app/data/events.json')}}", function(error, data) {
 
         if (error) throw error;
 
