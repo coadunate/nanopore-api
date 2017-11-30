@@ -8,6 +8,6 @@
 requirejs.config({
     baseUrl: '{{ url_of("static",filename="./includes/lib")}}',
     paths: {
-        app: '{{ url_of("static", filename="./includes/app") }}'
+        app: '/static/includes/app"'
     }
 });
