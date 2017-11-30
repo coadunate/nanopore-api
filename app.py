@@ -16,7 +16,7 @@ api.add_resource(EventResource, '/eventdata/<string:qname>', endpoint='eventdata
 
 @app.route('/')
 def index():
-	return "Hello World!"
+		render_template('./app/index.html')
 
 if __name__ == '__main__':
     app.run(host='192.168.64.11',port=80,debug=True)
