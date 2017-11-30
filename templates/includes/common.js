@@ -6,8 +6,8 @@
 //except for 'app' ones, which are in a sibling
 //directory.
 requirejs.config({
-    baseUrl: 'includes/lib',
+    baseUrl: '{{ url_of("static",filename="includes/lib")}}',
     paths: {
-        app: '../app'
+        app: '{{ url_of("static", filename="./includes/app") }}'
     }
 });
