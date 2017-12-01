@@ -122,7 +122,7 @@ define(function (require) {
             var readBlocks = readsSVG.selectAll("rect").data(data).enter();
             var block  = readBlocks.append("rect")
                 .attr("x", function(d){ return scales.xR(d.pos); })
-                .attr("y", function(d,i){ return scales.yR(i) - 100; })
+                .attr("y", function(d,i){ return scales.yR(i) - 100 + (i*25); })
                 .attr("class", function(d,i){ return "read_" + i; })
                 .attr("width", function(d,i){ return scales.xR(data[i].span); })
                 .attr("height", 15)
