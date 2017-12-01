@@ -37,6 +37,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #FF8800;
+    margin-top: -100px;
 }
 /* Zebra striping */
 tr:nth-of-type(odd) {
