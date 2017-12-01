@@ -201,8 +201,8 @@ define(function (require) {
                 }
                 });
 
-            var mutaitons = [];
             for(var j = 0; j < data.length; j++){
+                var mutations = [];
                 for(var i = 0; i < data[j].span; i++){
                         var query_record = data[j].query[i];
 
@@ -266,12 +266,12 @@ define(function (require) {
                                 .attr("stroke-width",1);
 
 
-                            mutaitons.push(del2);
+                            mutations.push(del2);
 
                         }
                 }
 
-                readMutations.push(mutaitons);
+                readMutations.push(mutations);
             }
             console.log(readMutations);
 
