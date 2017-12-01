@@ -104,58 +104,6 @@ define(function (require) {
             .attr("transform","translate(" + t.x + ",0)");
     }
 
-    function generateCircles(data){
-
-        d3.json(data,function(data,error) {
-            if (error) throw error;
-
-            for (var i = 0; i < numReads; i++) {
-                var circle = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).attr("class", "circ" + i).selectAll("circle")
-                    .data(data[i])
-                    .enter()
-                    .append("circle")
-                    .attr("cx", function (d) {
-                        return scales.xSG(d.index);
-                    })
-                    .attr("cy", function (d) {
-                        return scales.ySG(d.signal);
-                    })
-                    .attr("fill", function(d){
-                        if(d.move === 0){
-                            return "black";
-                        }else{
-                            return utils.colors[i];
-                        }
-                    })
-                    .attr("class", "dot")
-                    .attr("r", 5)
-                    .on("mouseover", function (d) {
-                        div.transition()
-                            .duration(200)
-                            .style("opacity", 0.9)
-                            .style("text-align", "left");
-                        //index,signal,time,model,length,stdv
-                        div.html(
-                            "<b>Event #:</b> " + (d.index) + "<br />" +
-                            "<b>Signal:</b> " + d.signal + "<br />" +
-                            "<b>Time:</b> " + d.time + "<br />" +
-                            "<b>Model:</b> " + d.model + "<br />" +
-                            "<b>Length:</b> " + d.length + "<br />" +
-                            "<b>Std. Dev:</b>" + d.stdv + "<br/>"
-                        )
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 8) + "px");
-                    })
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .duration(500)
-                            .style("opacity", 0);
-                    });
-            }
-        });
-
-    }
-
 
     // Function responsible for rendering the table onto the app.
     d3.json("static/includes/app/data/tabledata.json",function (error,data) {
@@ -239,6 +187,7 @@ define(function (require) {
                                         .style("opacity", 0);
                                 });
 
+                            insert.attr("opacity",0);
                             mutations.push(insert);
                         }
                         else if(query_record[1] === null) { // DELETION
@@ -252,7 +201,7 @@ define(function (require) {
                                 .attr("height", 17)
                                 .attr("fill", "white");
 
-
+                            del1.attr("opacity",0);
                             mutations.push(del1);
 
                             var del2 = readsSVG.append("rect")
@@ -265,7 +214,7 @@ define(function (require) {
                                 .attr('stroke', 'black')
                                 .attr("stroke-width",1);
 
-
+                            del2.attr("opacity",0);
                             mutations.push(del2);
 
                         }
@@ -393,7 +342,7 @@ define(function (require) {
                 // });
 
                 readMutations[i].forEach(function(e){
-                   e.remove();
+                    e.attr("opacity",0);
                 });
 
 
@@ -418,6 +367,10 @@ define(function (require) {
                 d3.select(".row" + i).style("background-color",'#bcf5a6');
 
                 reads_visible[i] = "visible";
+
+                readMutations[i].forEach(function(e){
+                   e.attr("opacity",1);
+                });
             }
 
 
@@ -552,7 +505,6 @@ define(function (require) {
         // populate the signal graph with circles for event points and line function.
         for (var i = 0; i < numReads; i++) {
 
-            console.log("numReads: " + (i+1))
 
             var circle = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).attr("class", "circ" + i).selectAll("circle")
                 .data(data[i])
