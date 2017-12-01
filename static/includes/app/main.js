@@ -190,7 +190,6 @@ define(function (require) {
                     signal_visible[i] = "invisible"
                 } else{
 
-                    console.log(indSGCricle.length + ":" + indmSGGraph.length + ":" + indSGGraph.length );
 
                     indSGCricle[i].style("opacity",1);
                     indmSGGraph[i].style("opacity",1);
@@ -403,6 +402,11 @@ define(function (require) {
                 //     e.style("opacity",0);
                 // });
 
+                readMutations[i].forEach(function(e){
+                   e.remove();
+                });
+
+
                 d3.select(".read_" + i).style("opacity",0);
 
                 d3.select(".row" + i).style("background",'none');
@@ -474,10 +478,7 @@ define(function (require) {
                             .attr("height", 17)
                             .attr("fill", "white");
 
-                        // Make del1 invisible at first.
-                        //del1.attr("opacity",0);
-
-                        //deletions.push(del1);
+                        mutations.push(del1);
 
                         var del2 = readsSVG.append("rect")
                             .attr("x", scales.xR(m)+2)
@@ -490,13 +491,12 @@ define(function (require) {
                             .attr("stroke-width",1);
 
 
-                        // Make del2 invisible at first.
-                        //del2.attr("opacity",0);
-
-                        //deletions.push(del2);
+                        mutations.push(del2);
 
                     }
                 }
+
+                readMutations.push(mutations);
             }
 
 
