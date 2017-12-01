@@ -271,7 +271,7 @@ define(function (require) {
                         }
                 }
 
-                readMutations.push(mutations);
+                readMutations.push(mutaitons);
             }
             console.log(readMutations);
 
