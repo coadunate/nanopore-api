@@ -70,7 +70,7 @@ define(function (require) {
     // create graphic element for the reads alignment viewer.
     var reads = svg.append("g")
         .attr("class", "reads")
-        .attr("transform", "translate(" + utils.marginSignalGraph.left + "," + (utils.marginSignalGraph.top + utils.height + utils.heightminiSignalGraph + 100) + ")")
+        .attr("transform", "translate(" + utils.marginSignalGraph.left + "," + (utils.marginSignalGraph.top + utils.height + utils.heightminiSignalGraph) + ")")
         .call(rXZoom);
 
     scales.yR.domain([0,100]);
