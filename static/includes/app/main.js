@@ -178,6 +178,9 @@ define(function (require) {
                 .on("click",function(d,i){
                 console.log("Read: " + i);
                 if(signal_visible[i] === "visible"){
+
+                    console.log(indSGCricle.length + ":" + indmSGGraph.length + ":" + indSGGraph.length );
+
                     indSGCricle[i].style("opacity",0);
                     indmSGGraph[i].style("opacity",0);
                     indSGGraph[i].style("opacity",0);
@@ -186,7 +189,10 @@ define(function (require) {
 
                     signal_visible[i] = "invisible"
                 } else{
-                    indSGCricle[i].style("opacity",1);
+
+                    console.log(indSGCricle.length + ":" + indmSGGraph.length + ":" + indSGGraph.length );
+
+                    //indSGCricle[i].style("opacity",1);
                     indmSGGraph[i].style("opacity",1);
                     indSGGraph[i].style("opacity",1);
 
@@ -502,6 +508,8 @@ define(function (require) {
 
         if (error) throw error;
 
+        console.log("Event's Length: " + data.length);
+
 
         var numReads = data.length; // the number of reads in the jSON file
 
@@ -620,77 +628,58 @@ define(function (require) {
             .text("Signal Value (pA)");
 
 
-        generateCircles(data);
-
         // populate the signal graph with circles for event points and line function.
         for (var i = 0; i < numReads; i++) {
 
-            // var circle = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).attr("class", "circ" + i).selectAll("circle")
-            //     .data(data[i])
-            //     .enter()
-            //     .append("circle")
-            //     .attr("cx", function (d) {
-            //         return scales.xSG(d.index);
-            //     })
-            //     .attr("cy", function (d) {
-            //         return scales.ySG(d.signal);
-            //     })
-            //     .attr("fill", function(d){
-            //         if(d.move === 0){
-            //             return "black";
-            //         }else{
-            //             return utils.colors[i];
-            //         }
-            //     })
-            //     .attr("class", "dot")
-            //     .attr("r", 5)
-            //     .on("mouseover", function (d) {
-            //         div.transition()
-            //             .duration(200)
-            //             .style("opacity", 0.9)
-            //             .style("text-align", "left");
-            //         //index,signal,time,model,length,stdv
-            //         div.html(
-            //             "<b>Event #:</b> " + (d.index) + "<br />" +
-            //             "<b>Signal:</b> " + d.signal + "<br />" +
-            //             "<b>Time:</b> " + d.time + "<br />" +
-            //             "<b>Model:</b> " + d.model + "<br />" +
-            //             "<b>Length:</b> " + d.length + "<br />" +
-            //             "<b>Std. Dev:</b>" + d.stdv + "<br/>"
-            //         )
-            //             .style("left", (d3.event.pageX) + "px")
-            //             .style("top", (d3.event.pageY - 8) + "px");
-            //     })
-            //     .on("mouseout", function (d) {
-            //         div.transition()
-            //             .duration(500)
-            //             .style("opacity", 0);
-            //     });
+            console.log("numReads: " + (i+1))
 
-            var basepairs = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).attr("class", "bp" + i).selectAll("text")
+            var circle = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).attr("class", "circ" + i).selectAll("circle")
                 .data(data[i])
                 .enter()
-                .append("text")
-                .attr("x", function (d) {
+                .append("circle")
+                .attr("cx", function (d) {
                     return scales.xSG(d.index);
                 })
-                .attr("y", function (d) {
+                .attr("cy", function (d) {
                     return scales.ySG(d.signal);
                 })
-                .text(function(d){
-                    return d.model[d.model.length-1];
+                .attr("fill", function(d){
+                    if(d.move === 0){
+                        return "black";
+                    }else{
+                        return utils.colors[i];
+                    }
                 })
-                .attr("class","bp")
-                .attr("font-family","sans-serif")
-                .attr("font-size","15px")
-                .attr("stroke-width",4)
-                .attr("fill", "black")
-                .attr("style","display:none;");
+                .attr("class", "dot")
+                .attr("r", 5)
+                .on("mouseover", function (d) {
+                    div.transition()
+                        .duration(200)
+                        .style("opacity", 0.9)
+                        .style("text-align", "left");
+                    //index,signal,time,model,length,stdv
+                    div.html(
+                        "<b>Event #:</b> " + (d.index) + "<br />" +
+                        "<b>Signal:</b> " + d.signal + "<br />" +
+                        "<b>Time:</b> " + d.time + "<br />" +
+                        "<b>Model:</b> " + d.model + "<br />" +
+                        "<b>Length:</b> " + d.length + "<br />" +
+                        "<b>Std. Dev:</b>" + d.stdv + "<br/>"
+                    )
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 8) + "px");
+                })
+                .on("mouseout", function (d) {
+                    div.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
+
 
             // Make all the circles invisible at first.
-            // circle.attr("opacity",0);
+            circle.attr("opacity",0);
 
-            // indSGCricle.push(circle); // add the created sequence of circles to indSGCircle for later modification
+            indSGCricle.push(circle); // add the created sequence of circles to indSGCircle for later modification
 
             // create a path for the signal data.
             var graph = SGGraph.append("svg").attr("width", utils.width).attr("height", utils.height).append("path")
