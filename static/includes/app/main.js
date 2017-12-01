@@ -65,7 +65,6 @@ define(function (require) {
 
     // x-axis for the read alignment viewer.
     var rXAxis = d3.axisBottom(scales.xR);
-    var rYAxis = d3.axisLeft(scales.yR);
 
 
     // create graphic element for the reads alignment viewer.
@@ -83,11 +82,6 @@ define(function (require) {
         .attr("class", "axis rXaxis")
         .attr("transform", "translate(0," + 300 + ")")
         .call(rXAxis);
-
-    read_container.append("g")
-        .attr("class", "axis rYAxis")
-        .attr("transform","trasnalte(0," + utils.width + ")")
-        .call(rYAxis);
 
 
 
