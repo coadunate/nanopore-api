@@ -201,82 +201,79 @@ define(function (require) {
                 }
                 });
 
-        var mutations = [];
-        for(var m = 0; m < data[i].span; m++){
-            var query_record = data[i].query[m];
+            var mutaitons = [];
+            for(var j = 0; j < data.length; j++){
+                for(var i = 0; i < data[j].span; i++){
+                        var query_record = data[j].query[i];
 
-            if(query_record[0] === null && data[i].query[m-1][0] != null){ // INSERTION
+
+                        if(query_record[0] === null && data[j].query[i-1][0] != null){ // INSERTION
 
 
-                var insert = readsSVG.append("rect")
-                    .attr("x", scales.xR(m))
-                    .attr("y", scales.yR(i) - 400 + (i*25) - 5)
-                    .attr("class", "read" + i + "_" + m)
-                    .attr("width", 1)
-                    .attr("height", 25)
-                    .attr("fill", "white")
-                    .attr('stroke', 'black')
-                    .attr("stroke-width", 1)
-                    .on("mouseover", function (d) {
-                        div.transition()
-                            .duration(200)
-                            .style("opacity", 0.9)
-                            .style("text-align", "left");
-                        //index,signal,time,model,length,stdv
-                        div.html(
-                            "<b>Inserted Bases:- <u>" + query_record[2] + "AT" + "</u></u></b><br />" +
-                            "<b>Quality:- : ;</b><br />" +
-                            "<b>Reference Position: <u>" + 127 + "</u></b>"
-                        )
-                            .style("left", (d3.event.pageX) + "px")
-                            .style("top", (d3.event.pageY - 8) + "px");
-                    })
-                    .on("mouseout", function (d) {
-                        div.transition()
-                            .duration(500)
-                            .style("opacity", 0);
-                    });
+                            var insert = readsSVG.append("rect")
+                                .attr("x", scales.xR(i))
+                                .attr("y", scales.yR(j) - 400 + (j*25) - 5)
+                                .attr("class", "read" + j + "_" + i)
+                                .attr("width", 1)
+                                .attr("height", 25)
+                                .attr("fill", "white")
+                                .attr('stroke', 'black')
+                                .attr("stroke-width", 1)
+                                .on("mouseover", function (d) {
+                                    div.transition()
+                                        .duration(200)
+                                        .style("opacity", 0.9)
+                                        .style("text-align", "left");
+                                    //index,signal,time,model,length,stdv
+                                    div.html(
+                                        "<b>Inserted Bases:- <u>" + query_record[2] + "AT" + "</u></u></b><br />" +
+                                        "<b>Quality:- : ;</b><br />" +
+                                        "<b>Reference Position: <u>" + 127 + "</u></b>"
+                                    )
+                                        .style("left", (d3.event.pageX) + "px")
+                                        .style("top", (d3.event.pageY - 8) + "px");
+                                })
+                                .on("mouseout", function (d) {
+                                    div.transition()
+                                        .duration(500)
+                                        .style("opacity", 0);
+                                });
 
-                mutations.push(insert);
+                            mutations.push(insert);
+                        }
+                        else if(query_record[1] === null) { // DELETION
+
+
+                            var del1 = readsSVG.append("rect")
+                                .attr("x", scales.xR(i)+2)
+                                .attr("y", scales.yR(j) - 400 + (j*25) -1)
+                                .attr("class", "read" + j + "_" + i)
+                                .attr("width", 25.2)
+                                .attr("height", 17)
+                                .attr("fill", "white");
+
+
+                            mutations.push(del1);
+
+                            var del2 = readsSVG.append("rect")
+                                .attr("x", scales.xR(i)+2)
+                                .attr("y", scales.yR(j) - 400 + (j*25) + 7)
+                                .attr("class", "read" + j + "_" + i)
+                                .attr("width", 25)
+                                .attr("height", 1)
+                                .attr("fill", "white")
+                                .attr('stroke', 'black')
+                                .attr("stroke-width",1);
+
+
+                            mutaitons.push(del2);
+
+                        }
+                }
+
+                readMutations.push(mutations);
             }
-            else if(query_record[1] === null) { // DELETION
-
-
-                var del1 = readsSVG.append("rect")
-                    .attr("x", scales.xR(m)+2)
-                    .attr("y", scales.yR(i) - 400 + (i*25) -1)
-                    .attr("class", "read" + i + "_" + m)
-                    .attr("width", 25.2)
-                    .attr("height", 17)
-                    .attr("fill", "white");
-
-                mutations.push(del1);
-
-                var del2 = readsSVG.append("rect")
-                    .attr("x", scales.xR(m)+2)
-                    .attr("y", scales.yR(i) - 400 + (i*25) + 7)
-                    .attr("class", "read" + i + "_" + m)
-                    .attr("width", 25)
-                    .attr("height", 1)
-                    .attr("fill", "white")
-                    .attr('stroke', 'black')
-                    .attr("stroke-width",1);
-
-
-                mutations.push(del2);
-
-            }
-        }
-
-        readMutations.push(mutations);
-
-        console.log(readMutations);
-
-            // var insertions = [];
-            // var deletions = [];
-            // fx
-            // readInsertions.push(insertions);
-            // readDeletions.push(deletions);
+            console.log(readMutations);
 
 
         // Populate the reference
