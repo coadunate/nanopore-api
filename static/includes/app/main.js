@@ -80,7 +80,7 @@ define(function (require) {
 
     read_container.append("g")
         .attr("class", "axis rXaxis")
-        .attr("transform", "translate(0," + utils.height + ")")
+        .attr("transform", "translate(0," + 300 + ")")
         .call(rXAxis);
 
 
