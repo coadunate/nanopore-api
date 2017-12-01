@@ -192,7 +192,7 @@ define(function (require) {
 
                     console.log(indSGCricle.length + ":" + indmSGGraph.length + ":" + indSGGraph.length );
 
-                    //indSGCricle[i].style("opacity",1);
+                    indSGCricle[i].style("opacity",1);
                     indmSGGraph[i].style("opacity",1);
                     indSGGraph[i].style("opacity",1);
 
