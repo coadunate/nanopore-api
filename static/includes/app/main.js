@@ -166,7 +166,7 @@ define(function (require) {
 
                             var insert = readsSVG.append("rect")
                                 .attr("x", scales.xR(i))
-                                .attr("y", scales.yR(j) - 400 + (j*25) - 5)
+                                .attr("y", scales.yR(j) - 100 + (j*25) - 5)
                                 .attr("class", "read" + j + "_" + i)
                                 .attr("width", 1)
                                 .attr("height", 25)
@@ -201,7 +201,7 @@ define(function (require) {
 
                             var del1 = readsSVG.append("rect")
                                 .attr("x", scales.xR(i)+2)
-                                .attr("y", scales.yR(j) - 400 + (j*25) -1)
+                                .attr("y", scales.yR(j) - 100 + (j*25) -1)
                                 .attr("class", "read" + j + "_" + i)
                                 .attr("width", 25.2)
                                 .attr("height", 17)
@@ -212,7 +212,7 @@ define(function (require) {
 
                             var del2 = readsSVG.append("rect")
                                 .attr("x", scales.xR(i)+2)
-                                .attr("y", scales.yR(j) - 400 + (j*25) + 7)
+                                .attr("y", scales.yR(j) - 100 + (j*25) + 7)
                                 .attr("class", "read" + j + "_" + i)
                                 .attr("width", 25)
                                 .attr("height", 1)
