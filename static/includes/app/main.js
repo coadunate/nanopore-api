@@ -158,7 +158,7 @@ define(function (require) {
 
 
     // Function responsible for rendering the table onto the app.
-    d3.json("http://206.167.181.87/tabledata",function (error,data) {
+    d3.json("static/includes/app/data/tabledata.json",function (error,data) {
 
         if (error) throw error;
 
